@@ -62,8 +62,8 @@ COPY context.xml $CATALINA_HOME/webapps/manager/META-INF/context.xml
 COPY tomcat.service /etc/systemd/system
 RUN systemctl enable tomcat
 
-RUN mkdir -p /usr/local/deployment
-VOLUME ["/usr/local/deployment"]
+RUN mkdir -p /tmp/deployment
+VOLUME ["/tmp/deployment"]
 
 COPY start.sh .
 RUN chmod +x start.sh
