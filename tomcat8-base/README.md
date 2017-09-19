@@ -19,7 +19,7 @@ Admin Console Credentials: ''admin/admin''
 
 ##Deploy Web Application
 
-On start, Docker container copies war files available at mount point '/usr/local/deployment' to $CATALINA_HOME/webapps directory of tomcat. To deploy web application(s) to this tomcat instance, create a host directory to contain all your war files, copy the war file(s) into it and and point it to the mounting to this docker mount point as shown below.
+On start, Docker container copies war files available at mount point '/tmp/deployment' to $CATALINA_HOME/webapps directory of tomcat. To deploy web application(s) to this tomcat instance, create a host directory to contain all your war files, copy the war file(s) into it and include mapping in the run command to this docker mount point as shown below.
 
 'cp web-application.war /tmp/deployment'
 
