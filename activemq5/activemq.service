@@ -3,7 +3,7 @@ Description=ActiveMQ
 
 [Service]
 Type=forking
-Environment=JAVA_HOME=/usr/lib/jvm/java-1.7.0-openjdk
+Environment=JAVA_HOME=/usr/java/jdk1.8.0_144
 PIDFile=/opt/activemq/data/activemq.pid
 ExecStart=/opt/activemq/bin/activemq start
 ExecStop=/opt/activemq/bin/activemq stop
