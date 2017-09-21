@@ -1,1 +1,0 @@
-## Java Oracle 8 and Maven 3.3.9 on Centos 7
