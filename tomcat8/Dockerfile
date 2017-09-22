@@ -42,7 +42,7 @@ COPY tomcat.service /etc/systemd/system
 RUN systemctl enable tomcat
 
 RUN mkdir -p /tmp/deployment
-VOLUME ["/tmp/deployment"]
+VOLUME ["/tmp/tomcat/deployments"]
 
 COPY start.sh .
 RUN chmod +x start.sh
