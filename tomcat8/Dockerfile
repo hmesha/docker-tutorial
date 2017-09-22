@@ -13,16 +13,15 @@ ENV TOMCAT_GROUP tomcat
 ENV TOMCAT_USER tomcat
 ENV CATALINA_HOME /opt/tomcat
 RUN groupadd $TOMCAT_GROUP
-RUN useradd -M -s /bin/nologin -g tomcat -d /opt/tomcat $TOMCAT_USER
+RUN useradd -M -s /bin/nologin -g $TOMCAT_GROUP -d $CATALINA_HOME $TOMCAT_USER
 	
 RUN wget http://mirror.dsrg.utoronto.ca/apache/tomcat/tomcat-8/v8.5.20/bin/apache-tomcat-8.5.20.tar.gz
-RUN mkdir /opt/tomcat
+RUN mkdir $CATALINA_HOME
 RUN tar xvf apache-tomcat-8*tar.gz -C $CATALINA_HOME --strip-components=1
-RUN cd /opt/tomcat
-RUN chgrp -R tomcat $CATALINA_HOME
+RUN cd $CATALINA_HOME
+RUN chown -R $TOMCAT_USER:$TOMCAT_GROUP $CATALINA_HOME
 RUN chmod -R g+r $CATALINA_HOME/conf
 RUN chmod g+x $CATALINA_HOME/conf
-RUN chown -R $TOMCAT_USER $CATALINA_HOME/webapps/ $CATALINA_HOME/work/ $CATALINA_HOME/temp/ $CATALINA_HOME/logs/
 
 # clean infrastucture
 RUN yum -y remove wget
@@ -41,7 +40,7 @@ COPY context.xml $CATALINA_HOME/webapps/manager/META-INF/context.xml
 COPY tomcat.service /etc/systemd/system
 RUN systemctl enable tomcat
 
-RUN mkdir -p /tmp/deployment
+RUN mkdir -p /tmp/tomcat/deployments
 VOLUME ["/tmp/tomcat/deployments"]
 
 COPY start.sh .
