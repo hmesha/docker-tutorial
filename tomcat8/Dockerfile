@@ -43,9 +43,11 @@ RUN systemctl enable tomcat
 RUN mkdir -p /tmp/tomcat/deployments
 VOLUME ["/tmp/tomcat/deployments"]
 
-COPY start.sh .
-RUN chmod +x start.sh
 EXPOSE 8080
 
-# To correctly start D-Bus, it should be the fist service - https://forums.docker.com/t/any-simple-and-safe-way-to-start-services-on-centos7-systemd/5695/8
-CMD ["./start.sh"]
+WORKDIR $CATALINA_HOME/bin
+COPY start_deployment.sh .
+RUN chmod +x start_deployment.sh
+
+# https://forums.docker.com/t/any-simple-and-safe-way-to-start-services-on-centos7-systemd/5695/8
+CMD ["./start_deployment.sh"]
